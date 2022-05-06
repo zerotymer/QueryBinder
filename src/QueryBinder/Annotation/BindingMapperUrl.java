@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Target(ElementType.TYPE)
-public @interface BindingMapper {
-    String url() default "";
+public @interface BindingMapperUrl {
+    String value() default "";
     HttpRequestMethods method() default HttpRequestMethods.GET;
 }

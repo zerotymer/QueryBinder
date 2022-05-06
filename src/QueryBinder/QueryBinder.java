@@ -1,12 +1,19 @@
 package QueryBinder;
 
+import QueryBinder.Annotation.BindingMapperParam;
 import QueryBinder.Request.HttpRequestMethods;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 public class QueryBinder {
     /// FIELDs
@@ -45,8 +52,7 @@ public class QueryBinder {
         }
     }
 
-    public HashMap<String, String> requestQuery(QueryMap query) {
-        HashMap<String, String> response = new HashMap<>();
+    public Map<?, ?> requestQuery(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -66,11 +72,39 @@ public class QueryBinder {
                 response.append(inputLine);
             }
             br.close();
-            System.err.println(response.toString());
+
+            return new JSONObject(response.toString()).toMap();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return response;
+        return null;
+    }
+
+    public QueryResponsible test(QueryResponsible target, Map<?, ?> map) throws IllegalAccessException, InvocationTargetException {
+
+        // Field annotations
+        for (Field field : target.getClass().getDeclaredFields()) {
+            for (Annotation annotation : field.getDeclaredAnnotations()) {
+                if (annotation instanceof BindingMapperParam) {
+                    BindingMapperParam param = (BindingMapperParam) annotation;
+                    if (map.containsKey(param.value()))
+                        field.set(target, map.get(param.value()));
+                }
+            }
+        }
+
+        // Method annotations
+        for (Method method : target.getClass().getDeclaredMethods()) {
+            for (Annotation annotation : method.getDeclaredAnnotations()) {
+                if (annotation instanceof BindingMapperParam) {
+                    BindingMapperParam param = (BindingMapperParam) annotation;
+                    if (map.containsKey(param.value()))
+                        method.invoke(target, map.get(param.value()));
+                }
+            }
+        }
+
+        return target;                  // For Channing
     }
 }

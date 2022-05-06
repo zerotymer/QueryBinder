@@ -2,21 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QueryBinder.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Exception/NoUrlExcption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Request/HttpRequestMethods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QueryBinder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/QueryBinder.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +50,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Environment/json/json-20220320.jar",
+    "project.structure.last.edited": "모듈",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "copyright"
   }
 }]]></component>
@@ -85,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651798704128</updated>
-      <workItem from="1651798707296" duration="12154000" />
+      <workItem from="1651798707296" duration="21684000" />
     </task>
     <servers />
   </component>
@@ -104,11 +104,10 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="query" language="JAVA" />
-        <watch expression="query.getUrl()" language="JAVA" />
-      </configuration>
-    </watches-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.Class" memberName="annotationData" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

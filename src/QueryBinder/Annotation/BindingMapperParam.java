@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Inherited
 @Target({java.lang.annotation.ElementType.METHOD, ElementType.FIELD})
 public @interface BindingMapperParam {
-    String name() default "";
+    String value() default "";
     String defaultValue() default "";
     boolean required() default false;
 }

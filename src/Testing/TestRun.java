@@ -1,10 +1,9 @@
 package Testing;
 
-import QueryBinder.Annotation.BindingMapper;
 import QueryBinder.QueryBinder;
 import QueryBinder.QueryMap;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class TestRun {
     public static void main(String[] args) throws Exception {
@@ -12,7 +11,10 @@ public class TestRun {
 //        QueryMap queryMap = new QueryMap((BindingMapper) testRequestVO);
         QueryMap queryMap = new QueryMap(testRequestVO);
         QueryBinder binder = new QueryBinder();
-        System.out.println(binder);
-        binder.getQuery(queryMap);
+        Map<?, ?> map = binder.requestQuery(queryMap);
+
+        MyBoardVO vo = new MyBoardVO();
+        System.out.println("111: " + map);
+        binder.test(vo, queryMap);
     }
 }

@@ -1,18 +1,13 @@
 package Testing;
 
-import QueryBinder.Annotation.BindingMapper;
+import QueryBinder.Annotation.BindingMapperUrl;
 import QueryBinder.Annotation.BindingMapperParam;
 import QueryBinder.QueryResponsible;
 
-import java.util.HashMap;
-
-@BindingMapper
+@BindingMapperUrl
 public class TestResponseVO implements QueryResponsible {
-    @BindingMapperParam(name = "aaa")
+    @BindingMapperParam(value = "aaa")
     private String name;
 
-    @Override
-    public HashMap getMap() {
-        return null;
-    }
+
 }

@@ -1,10 +1,11 @@
 package QueryBinder;
 
 import QueryBinder.Annotation.BindingMapperParam;
-import QueryBinder.Annotation.BindingMapper;
+import QueryBinder.Annotation.BindingMapperUrl;
 import QueryBinder.Request.HttpRequestMethods;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -26,15 +27,24 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         super();
         this.url = url;
     }
-    public QueryMap(BindingMapper map) throws InvocationTargetException, IllegalAccessException {
+    public QueryMap(BindingMapperUrl map) throws InvocationTargetException, IllegalAccessException {
         super();
-        this.url = map.url();
+        this.url = map.value();
 
         for (Method method : map.getClass().getDeclaredMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
                 if (annotation instanceof BindingMapperParam) {
                     BindingMapperParam param = (BindingMapperParam) annotation;
-                    this.put(param.name(), method.invoke(map));                         // Annotation 등록.
+                    this.put(param.value(), method.invoke(map));                         // Annotation 등록.
+                }
+            }
+        }
+
+        for (Field field : map.getClass().getDeclaredFields()) {
+            for (Annotation annotation : field.getDeclaredAnnotations()) {
+                if (annotation instanceof BindingMapperParam) {
+                    BindingMapperParam param = (BindingMapperParam) annotation;
+                    this.put(param.value(), field.get(map));                         // Annotation 등록.
                 }
             }
         }
@@ -43,10 +53,10 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         super();
 
         for (Annotation anno : map.getClass().getDeclaredAnnotations()) {
-            if (anno instanceof BindingMapper) this.url = ((BindingMapper) anno).url();
+            if (anno instanceof BindingMapperUrl) this.url = ((BindingMapperUrl) anno).value();
             else if (anno instanceof BindingMapperParam) {
                 BindingMapperParam param = (BindingMapperParam) anno;
-                this.put(param.name(), map.getClass().getDeclaredMethod(param.name()).invoke(map));
+                this.put(param.value(), map.getClass().getDeclaredMethod(param.value()).invoke(map));
             }
         }
     }
