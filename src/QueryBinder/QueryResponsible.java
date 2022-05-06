@@ -1,4 +1,8 @@
 package QueryBinder;
 
-public interface QueryResponsable {
+import java.util.HashMap;
+
+public interface QueryResponsible {
+
+    HashMap getMap();
 }

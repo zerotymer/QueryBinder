@@ -1,4 +1,4 @@
-package QueryBinder;
+package QueryBinder.Request;
 
 public enum HttpRequestMethods {
     GET(1), POST(2), PUT(3), DELETE(4), HEAD(5), OPTIONS(6), TRACE(7), CONNECT(8);

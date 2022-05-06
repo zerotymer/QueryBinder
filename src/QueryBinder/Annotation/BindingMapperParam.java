@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Target({java.lang.annotation.ElementType.METHOD, ElementType.FIELD})
-public @interface RequestMapperParam {
+public @interface BindingMapperParam {
     String name() default "";
     String defaultValue() default "";
     boolean required() default false;
