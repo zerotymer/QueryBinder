@@ -7,8 +7,8 @@ import QueryBinder.Request.HttpRequestMethods;
 
 import java.util.HashMap;
 
-@BindingMapperUrl(value = "http://localhost:8080/myboard/view.ajax", method = HttpRequestMethods.GET)
-public class TestRequestVO implements QueryRequestable<TestResponseVO> {
+@BindingMapperUrl(value = "http://localhost:8080/myboard/list.ajax", method = HttpRequestMethods.GET)
+public class TestRequestVO implements QueryRequestable{
     /// FIELDs
     private int value;
 
@@ -20,14 +20,13 @@ public class TestRequestVO implements QueryRequestable<TestResponseVO> {
     // SETTER
 
     //
-    @BindingMapperParam(value = "value", defaultValue = "0", required = false)
+    @BindingMapperParam(value = "value", defaultValue = "1", required = false)
     public String getQueryValue() {
         return String.valueOf(value);
     }
 
     @Override
     public TestResponseVO requestQuery() {
-
         return null;
     }
 

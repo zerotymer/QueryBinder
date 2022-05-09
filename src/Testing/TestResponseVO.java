@@ -10,4 +10,8 @@ public class TestResponseVO implements QueryResponsible {
     private String name;
 
 
+    @Override
+    public TestResponseVO newInstance() {
+        return null;
+    }
 }

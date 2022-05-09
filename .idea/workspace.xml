@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="QueryBinder:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/QueryBinder_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryBinder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/QueryBinder.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperUrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
@@ -50,11 +52,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "1.8",
     "last_opened_file_path": "C:/Environment/json/json-20220320.jar",
     "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "copyright"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
   <component name="RunManager">
@@ -85,7 +88,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651798704128</updated>
-      <workItem from="1651798707296" duration="21684000" />
+      <workItem from="1651798707296" duration="21743000" />
+      <workItem from="1652054287046" duration="2999000" />
+      <workItem from="1652058239535" duration="12009000" />
     </task>
     <servers />
   </component>

@@ -9,23 +9,16 @@ import java.util.Date;
 @BindingMapperUrl("")
 public class MyBoardVO implements QueryResponsible {
     /// FIELDs
-    @BindingMapperParam(value = "BID", required = true)
+
     private int bid;
-    @BindingMapperParam(value = "TITLE", required = true)
     private String title;
-    @BindingMapperParam(value = "CONTENT", required = true)
     private String content;
-    @BindingMapperParam(value = "WRITER", required = true)
     private String writer;
-    @BindingMapperParam(value = "CREATE_DATE", required = true)
     private Date createDate;
-    @BindingMapperParam(value = "UPDATE_DATE", required = true)
     private Date updateDate;
-    @BindingMapperParam(value = "DEL_YN", required = true)
-    private char delYN;
+    private char delYN = 'N';
 
     /// CONSTRUCTORs
-
 
     /// METHODs
     // Getters
@@ -39,12 +32,29 @@ public class MyBoardVO implements QueryResponsible {
 
     // Setters
     public void setBid(int bid) { this.bid = bid; }
+    @BindingMapperParam(value = "BID", required = true, defaultValue = "1")
+    public void setBid(String bid) { this.bid = Integer.parseInt(bid); }
+
+    @BindingMapperParam(value = "TITLE", required = true, defaultValue = "")
     public void setTitle(String title) { this.title = title; }
+
+    @BindingMapperParam(value = "CONTENT", required = true, defaultValue = "")
     public void setContent(String content) { this.content = content; }
+
+    @BindingMapperParam(value = "WRITER", required = true, defaultValue = "")
     public void setWriter(String writer) { this.writer = writer; }
+
     public void setCreateDate(Date createDate) { this.createDate = createDate; }
+//    @BindingMapperParam(value = "CREATE_DATE", required = true, defaultValue = "")
+    public void setCreateDate(String createDate) { this.createDate = new Date(Long.parseLong(createDate)); }
+
     public void setUpdateDate(Date updateDate) { this.updateDate = updateDate; }
+//    @BindingMapperParam(value = "UPDATE_DATE", required = true, defaultValue = "")
+    public void setUpdateDate(String updateDate) { this.updateDate = new Date(Long.parseLong(updateDate)); }
+
     public void setDelYN(char delYN) { this.delYN = delYN; }
+    @BindingMapperParam(value = "DEL_YN", required = true, defaultValue = "N")
+    public void setDelYN(String delYN) { this.delYN = delYN.charAt(0); }
 
     @Override
     public String toString() {
@@ -59,5 +69,8 @@ public class MyBoardVO implements QueryResponsible {
                 '}';
     }
 
-
+    @Override
+    public MyBoardVO newInstance() {
+        return new MyBoardVO();
+    }
 }

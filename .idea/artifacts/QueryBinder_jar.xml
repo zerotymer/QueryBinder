@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="QueryBinder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/QueryBinder_jar</output-path>
+    <root id="archive" name="QueryBinder.jar">
+      <element id="module-output" name="QueryBinder" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Environment/json/json-20220320.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
