@@ -12,9 +12,9 @@ public class TestRun {
 
         TestRequestVO testRequestVO = new TestRequestVO();
         QueryMap queryMap = new QueryMap(testRequestVO);
-        List<Map<?, ?>> map = QueryBinder.requestQueryList(queryMap);     // One
+        List<?> list = QueryBinder.getRequestList(queryMap);     // One
 
-        System.out.println(map);
+        System.out.println(list);
 
 //        System.out.println(map);
 //        MyBoardVO vo = QueryBinder.<MyBoardVO>mapping(map, MyBoardVO.class);

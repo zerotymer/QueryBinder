@@ -2,11 +2,8 @@ package QueryBinder;
 
 import java.util.HashMap;
 
-/*
- * Query 요청을 위한 인터페이스
+/**
+ * QuaryMap을 이용하여 요청가능
  */
-public interface QueryRequestable<T extends QueryResponsible> {
-    QueryResponsible requestQuery();
-    HashMap<String, String> requestQueryToMap();
-
+public interface QueryRequestable {
 }

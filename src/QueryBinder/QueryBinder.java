@@ -1,23 +1,29 @@
 package QueryBinder;
 
-import QueryBinder.Annotation.BindingMapperParam;
+import QueryBinder.Annotation.QueryBindingParam;
+import QueryBinder.Exception.NoUrlExcption;
 import QueryBinder.Request.HttpRequestMethods;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import Testing.MyBoardVO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+/**
+ * USE SINGLETON PATTERN
+ * @author 신현진
+ */
 public class QueryBinder {
     /// FIELDs
 
@@ -26,16 +32,11 @@ public class QueryBinder {
     /// METHODs
 
     @Deprecated
-    public static void getQuery(String query, HttpRequestMethods method) throws NotImplementedException {
-        // TODO: not Implemented
-        throw new NotImplementedException();
-    }
-
     public static void getQuery(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(query.getMethod().toString());                // TODO: check
+            conn.setRequestMethod("GET");                // TODO: check
             for (String key : query.keySet()) {
                 conn.setRequestProperty(key, query.get(key).toString());
             }
@@ -57,11 +58,12 @@ public class QueryBinder {
         }
     }
 
+    @Deprecated
     public static Map<?, ?> requestQuery(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(query.getMethod().toString());                // TODO: check
+            conn.setRequestMethod("GET");                // TODO: check
             for (String key : query.keySet()) {
                 conn.setRequestProperty(key, query.get(key).toString());
             }
@@ -86,11 +88,12 @@ public class QueryBinder {
         return null;
     }
 
+    @Deprecated
     public static List<Map<?, ?>> requestQueryList(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(query.getMethod().toString());                // TODO: check
+            conn.setRequestMethod("GET");                // TODO: check
             for (String key : query.keySet()) {
                 conn.setRequestProperty(key, query.get(key).toString());
             }
@@ -120,6 +123,210 @@ public class QueryBinder {
         return null;
     }
 
+
+    /**
+     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
+     * @param map
+     * @return
+     * @throws MalformedURLException
+     */
+    public static Map<?, ?> getRequest(QueryMap map) throws MalformedURLException {
+        // URL check
+        if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
+        URL url = new URL(map.getUrl());
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Set Property
+            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+
+            // Response
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(
+                new InputStreamReader(
+                    responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            return new JSONObject(response.toString()).toMap();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Query failed");
+        }
+
+        return null;
+    }
+
+    /**
+     * GET 방식의 쿼리를 요청하여 결과를 반환한다. (리스트)
+     * @param map
+     * @return
+     * @throws MalformedURLException
+     */
+    public static List<?> getRequestList(QueryMap map) throws MalformedURLException {
+        // URL check
+        if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
+        URL url = new URL(map.getUrl());
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Set Property
+            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+
+            // Response
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            ArrayList<Map<?, ?>> list = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(response.toString());
+            jsonArray.forEach(json -> list.add(new JSONObject(json.toString()).toMap()));
+            return list;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Query failed");
+        }
+
+        return null;
+    }
+
+    /**
+     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
+     * @param url 새로 지정할 url 값
+     * @param map 파라미터를 가진 맵
+     * @return
+     * @throws MalformedURLException
+     */
+    public static Map<?, ?> getRequest(String url, Map<?, ?> map) throws MalformedURLException {
+        // URL check
+        if (url.isEmpty()) throw new MalformedURLException("URL is empty");
+        URL _url = new URL(url);
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) _url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Set Property
+            map.keySet().forEach(key -> conn.setRequestProperty( (String)key, map.get(key).toString()));
+
+            // Response
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            return new JSONObject(response.toString()).toMap();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Query failed");
+        }
+
+        return null;
+    }
+
+    /**
+     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
+     * @param url
+     * @param map
+     * @return
+     * @throws MalformedURLException
+     */
+    public static List<?> getRequestList(String url, Map<?, ?> map) throws MalformedURLException {
+        // URL check
+        if (url.isEmpty()) throw new MalformedURLException("URL is empty");
+        URL _url = new URL(url);
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) _url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Set Property
+            map.keySet().forEach(key -> conn.setRequestProperty( (String)key, map.get(key).toString()));
+
+            // Response
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            ArrayList<Map<?, ?>> list = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(response.toString());
+            jsonArray.forEach(json -> list.add(new JSONObject(json.toString()).toMap()));
+            return list;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Query failed");
+        }
+
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+    @Deprecated
+    public static Map<?, ?> postRequest(QueryMap map) {
+        return null;
+    }
+
+    @Deprecated
+    public static Map<?, ?> postRequest(String url, QueryMap map) {
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
     @Deprecated
     public static QueryResponsible selectOne(QueryResponsible target, Map<?, ?> map)
             throws IllegalAccessException, InvocationTargetException {
@@ -127,8 +334,8 @@ public class QueryBinder {
         // Field annotations
         for (Field field : target.getClass().getDeclaredFields()) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
-                if (annotation instanceof BindingMapperParam) {
-                    BindingMapperParam param = (BindingMapperParam) annotation;
+                if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
                     if (map.containsKey(param.value()))
                         field.set(target, map.get(param.value()));
                 }
@@ -138,8 +345,8 @@ public class QueryBinder {
         // Method annotations
         for (Method method : target.getClass().getDeclaredMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
-                if (annotation instanceof BindingMapperParam) {
-                    BindingMapperParam param = (BindingMapperParam) annotation;
+                if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
                     if (map.containsKey(param.value()))
                         method.invoke(target, map.get(param.value()));
                 }
@@ -149,10 +356,7 @@ public class QueryBinder {
         return target;                  // For Channing
     }
 
-    /*
-     * @param target
-     *
-     */
+    @Deprecated
     public static <T extends QueryResponsible> T mapping(Map<?, ?> map, Class cls)
             throws IllegalAccessException, InvocationTargetException, InstantiationException {
         Object target = cls.newInstance();
@@ -160,8 +364,8 @@ public class QueryBinder {
         // Field annotations
         for (Field field : target.getClass().getDeclaredFields()) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
-                if (annotation instanceof BindingMapperParam) {
-                    BindingMapperParam param = (BindingMapperParam) annotation;
+                if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
                     if (map.containsKey(param.value()))
                         field.set(target, map.get(param.value()));
                 }
@@ -171,8 +375,8 @@ public class QueryBinder {
         // Method annotations
         for (Method method : target.getClass().getDeclaredMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
-                if (annotation instanceof BindingMapperParam) {
-                    BindingMapperParam param = (BindingMapperParam) annotation;
+                if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
                     if (map.containsKey(param.value()))
                         method.invoke(target, map.get(param.value()).toString());
                     else
@@ -185,6 +389,7 @@ public class QueryBinder {
 //        return target;                  // For Channing
     }
 
+    @Deprecated
     public static <T extends QueryResponsible> List<T> mapping(List<Map<?, ?>> list, Class cls)
             throws InvocationTargetException, IllegalAccessException, InstantiationException {
         List<T> targets = new ArrayList<>();

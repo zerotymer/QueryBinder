@@ -1,12 +1,13 @@
 package Testing;
 
-import QueryBinder.Annotation.BindingMapperParam;
-import QueryBinder.Annotation.BindingMapperUrl;
+import QueryBinder.Annotation.QueryBindingGetParam;
+import QueryBinder.Annotation.QueryBindingParam;
+import QueryBinder.Annotation.QueryBindingUrl;
 import QueryBinder.QueryResponsible;
 
 import java.util.Date;
 
-@BindingMapperUrl("")
+@QueryBindingUrl("")
 public class MyBoardVO implements QueryResponsible {
     /// FIELDs
 
@@ -32,16 +33,16 @@ public class MyBoardVO implements QueryResponsible {
 
     // Setters
     public void setBid(int bid) { this.bid = bid; }
-    @BindingMapperParam(value = "BID", required = true, defaultValue = "1")
+    @QueryBindingGetParam(value = "BID", isRequired = true, defaultValue = "1")
     public void setBid(String bid) { this.bid = Integer.parseInt(bid); }
 
-    @BindingMapperParam(value = "TITLE", required = true, defaultValue = "")
+    @QueryBindingGetParam(value = "TITLE", isRequired = true, defaultValue = "")
     public void setTitle(String title) { this.title = title; }
 
-    @BindingMapperParam(value = "CONTENT", required = true, defaultValue = "")
+    @QueryBindingGetParam(value = "CONTENT", isRequired = true, defaultValue = "")
     public void setContent(String content) { this.content = content; }
 
-    @BindingMapperParam(value = "WRITER", required = true, defaultValue = "")
+    @QueryBindingGetParam(value = "WRITER", isRequired = true, defaultValue = "")
     public void setWriter(String writer) { this.writer = writer; }
 
     public void setCreateDate(Date createDate) { this.createDate = createDate; }
@@ -53,7 +54,7 @@ public class MyBoardVO implements QueryResponsible {
     public void setUpdateDate(String updateDate) { this.updateDate = new Date(Long.parseLong(updateDate)); }
 
     public void setDelYN(char delYN) { this.delYN = delYN; }
-    @BindingMapperParam(value = "DEL_YN", required = true, defaultValue = "N")
+    @QueryBindingGetParam(value = "DEL_YN", isRequired = true, defaultValue = "N")
     public void setDelYN(String delYN) { this.delYN = delYN.charAt(0); }
 
     @Override

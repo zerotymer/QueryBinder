@@ -7,10 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/QueryBinder_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingSetParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingGetParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/BindingMapperUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingUrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" afterDir="false" />
@@ -45,21 +49,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Environment/json/json-20220320.jar",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Environment/json/json-20220320.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="QueryBinder.Annotation" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="TestRun" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Testing.TestRun" />
@@ -91,6 +100,8 @@
       <workItem from="1651798707296" duration="21743000" />
       <workItem from="1652054287046" duration="2999000" />
       <workItem from="1652058239535" duration="12009000" />
+      <workItem from="1652249685091" duration="6784000" />
+      <workItem from="1652313812488" duration="7771000" />
     </task>
     <servers />
   </component>

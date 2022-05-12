@@ -1,13 +1,14 @@
 package Testing;
 
-import QueryBinder.Annotation.BindingMapperUrl;
-import QueryBinder.Annotation.BindingMapperParam;
+import QueryBinder.Annotation.QueryBindingGetParam;
+import QueryBinder.Annotation.QueryBindingUrl;
+import QueryBinder.Annotation.QueryBindingParam;
 import QueryBinder.QueryRequestable;
 import QueryBinder.Request.HttpRequestMethods;
 
 import java.util.HashMap;
 
-@BindingMapperUrl(value = "http://localhost:8080/myboard/list.ajax", method = HttpRequestMethods.GET)
+@QueryBindingUrl(value = "http://localhost:8080/myboard/list.ajax")
 public class TestRequestVO implements QueryRequestable{
     /// FIELDs
     private int value;
@@ -20,18 +21,8 @@ public class TestRequestVO implements QueryRequestable{
     // SETTER
 
     //
-    @BindingMapperParam(value = "value", defaultValue = "1", required = false)
+    @QueryBindingGetParam(value = "value", defaultValue = "1", isRequired = true)
     public String getQueryValue() {
         return String.valueOf(value);
-    }
-
-    @Override
-    public TestResponseVO requestQuery() {
-        return null;
-    }
-
-    @Override
-    public HashMap<String, String> requestQueryToMap() {
-        return null;
     }
 }
