@@ -123,6 +123,44 @@ public class QueryBinder {
         return null;
     }
 
+    /**
+     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
+     * @param query
+     * @return
+     * @throws MalformedURLException
+     */
+    public static Map<?, ?> getRequest(String query) throws MalformedURLException {
+        // URL check
+        if (query.isEmpty()) throw new MalformedURLException("URL is empty");
+        URL url = new URL(query);
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Response
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            return new JSONObject(response.toString()).toMap();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Query failed");
+        }
+
+        return null;
+    }
 
     /**
      * GET 방식의 쿼리를 요청하여 결과를 반환한다.
@@ -133,14 +171,14 @@ public class QueryBinder {
     public static Map<?, ?> getRequest(QueryMap map) throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
-        URL url = new URL(map.getUrl());
+        URL url = new URL(map.toQueryString());
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            // Set Property
-            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+            // Set Property - for matadata
+//            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -175,14 +213,14 @@ public class QueryBinder {
     public static List<?> getRequestList(QueryMap map) throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
-        URL url = new URL(map.getUrl());
+        URL url = new URL(map.toQueryString());
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            // Set Property
-            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+            // Set Property - for metadata
+//            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -210,97 +248,6 @@ public class QueryBinder {
 
         return null;
     }
-
-    /**
-     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
-     * @param url 새로 지정할 url 값
-     * @param map 파라미터를 가진 맵
-     * @return
-     * @throws MalformedURLException
-     */
-    public static Map<?, ?> getRequest(String url, Map<?, ?> map) throws MalformedURLException {
-        // URL check
-        if (url.isEmpty()) throw new MalformedURLException("URL is empty");
-        URL _url = new URL(url);
-
-        try {
-            HttpURLConnection conn = (HttpURLConnection) _url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // Set Property
-            map.keySet().forEach(key -> conn.setRequestProperty( (String)key, map.get(key).toString()));
-
-            // Response
-            int responseCode = conn.getResponseCode();
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(
-                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
-
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-
-            return new JSONObject(response.toString()).toMap();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Query failed");
-        }
-
-        return null;
-    }
-
-    /**
-     * GET 방식의 쿼리를 요청하여 결과를 반환한다.
-     * @param url
-     * @param map
-     * @return
-     * @throws MalformedURLException
-     */
-    public static List<?> getRequestList(String url, Map<?, ?> map) throws MalformedURLException {
-        // URL check
-        if (url.isEmpty()) throw new MalformedURLException("URL is empty");
-        URL _url = new URL(url);
-
-        try {
-            HttpURLConnection conn = (HttpURLConnection) _url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // Set Property
-            map.keySet().forEach(key -> conn.setRequestProperty( (String)key, map.get(key).toString()));
-
-            // Response
-            int responseCode = conn.getResponseCode();
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(
-                            responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
-
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-
-            ArrayList<Map<?, ?>> list = new ArrayList<>();
-            JSONArray jsonArray = new JSONArray(response.toString());
-            jsonArray.forEach(json -> list.add(new JSONObject(json.toString()).toMap()));
-            return list;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Query failed");
-        }
-
-        return null;
-    }
-
-
 
 
 
