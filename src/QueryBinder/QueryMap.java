@@ -3,6 +3,7 @@ package QueryBinder;
 import QueryBinder.Annotation.QueryBindingGetParam;
 import QueryBinder.Annotation.QueryBindingParam;
 import QueryBinder.Annotation.QueryBindingUrl;
+import QueryBinder.Exception.UrlDuplicatedException;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -17,7 +18,7 @@ import java.net.URLEncoder;
  */
 public class QueryMap extends java.util.HashMap<String, Object> {
     /// FIELDs
-    private String url = "";
+    private String url = null;
 
     /// CONSTRUCTORs
     /**
@@ -43,7 +44,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
      * @throws IllegalAccessException
      * @throws NoSuchMethodException
      */
-    public QueryMap(QueryRequestable obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
+    public QueryMap(QueryRequestable obj)
+            throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         super();
 
         // QueryRequestable 객체
@@ -57,31 +59,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         }
 
         // Parameter 가져오기: 클래스내부에 정의된 것을 가져옴
-        this.mappingMethods(obj);
-        this.mappingFields(obj);
-        
-    }
-
-    /**
-     * Object에서 정의한 Annotation을 찾아서 바인딩하는 생성자.
-     * @param obj
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    public QueryMap(QueryBindingUrl obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
-        super();
-
-        // URL 가져오기
-        this.url = obj.value();
-
-        this.mappingMethods(obj);
-        try {
-            this.mappingFields(obj);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        this.mappingMethods(obj, obj.getClass());
+        this.mappingFields(obj, obj.getClass());
     }
 
 
@@ -108,21 +87,23 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         return sb.toString();
     }
 
-    private void mappingFields(Object obj) throws IllegalAccessException, UnsupportedEncodingException {
-        for (Field field : obj.getClass().getDeclaredFields()) {
+    private <T extends QueryRequestable> void mappingFields(T obj, Class<?> cls)
+            throws IllegalAccessException, UnsupportedEncodingException, UrlDuplicatedException {
+
+        for (Field field : cls.getDeclaredFields()) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
                 // URL 가져오기
                 if(annotation instanceof QueryBindingUrl) {
+                    if (this.url != null) throw new UrlDuplicatedException(obj.getClass().getName() + ": URL이 이미 정의되어 있습니다.");
+
                     field.setAccessible(true);
                     this.url = (String) field.get(obj);
                     continue;
                 }
 
                 field.setAccessible(true);                                             // Field 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                boolean isEncode = false;
+                String paramName = null, defaultValue = null;
+                boolean isRequired = false, isEncode = false;
                 // Parameter 가져오기
                 if (annotation instanceof QueryBindingGetParam) {
                     QueryBindingGetParam param = (QueryBindingGetParam) annotation;
@@ -147,10 +128,15 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
             }
         }
+
+        // 재귀호출
+        if (cls.getSuperclass() != null)
+            this.mappingFields(obj, cls.getSuperclass());
     }
 
-    private void mappingMethods(Object obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
-        for (Method method : obj.getClass().getDeclaredMethods()) {
+    private <T extends QueryRequestable> void mappingMethods(T obj, Class<?> cls)
+            throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
+        for (Method method : cls.getDeclaredMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
                 // URL 가져오기
                 if(annotation instanceof QueryBindingUrl) {
@@ -160,10 +146,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 }
 
                 method.setAccessible(true);                                             // Method 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                boolean isEncode = false;
+                String paramName = null, defaultValue = null;
+                boolean isRequired = false, isEncode = false;
                 // Parameter 가져오기
                 if (annotation instanceof QueryBindingGetParam) {
                     QueryBindingGetParam param = (QueryBindingGetParam) annotation;
@@ -188,6 +172,10 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
             }
         }
+
+        // 재귀호출
+        if (cls.getSuperclass() != null)
+            this.mappingMethods(obj, cls.getSuperclass());
     }
 
     // GETTERs

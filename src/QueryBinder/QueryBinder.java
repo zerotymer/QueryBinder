@@ -1,8 +1,6 @@
 package QueryBinder;
 
 import QueryBinder.Annotation.QueryBindingParam;
-import QueryBinder.Exception.NoUrlExcption;
-import QueryBinder.Request.HttpRequestMethods;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * USE SINGLETON PATTERN
@@ -194,7 +192,7 @@ public class QueryBinder {
             }
             br.close();
 
-            return new JSONObject(response.toString()).toMap();
+            return QueryBinder.JsonToMap(response.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -235,11 +233,8 @@ public class QueryBinder {
                 response.append(inputLine);
             }
             br.close();
-
-            ArrayList<Map<?, ?>> list = new ArrayList<>();
-            JSONArray jsonArray = new JSONArray(response.toString());
-            jsonArray.forEach(json -> list.add(new JSONObject(json.toString()).toMap()));
-            return list;
+            
+            return QueryBinder.jsonToArray(response.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -250,7 +245,20 @@ public class QueryBinder {
     }
 
 
-
+    private static Map<?, ?> JsonToMap(String json) {
+        return new JSONObject(json).toMap();
+    }
+    private static List<?> jsonToArray(String json) {
+        ArrayList<Map<?, ?>> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            jsonArray.forEach(jsonObject -> list.add(new JSONObject(jsonObject.toString()).toMap()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            System.err.println(QueryBinder.class.getName() + " : " + e.getMessage());
+        }
+        return list;
+    }
 
 
 
@@ -264,15 +272,6 @@ public class QueryBinder {
     public static Map<?, ?> postRequest(String url, QueryMap map) {
         return null;
     }
-
-
-
-
-
-
-
-
-
 
     @Deprecated
     public static QueryResponsible selectOne(QueryResponsible target, Map<?, ?> map)
