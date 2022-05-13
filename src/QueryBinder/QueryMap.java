@@ -4,10 +4,12 @@ import QueryBinder.Annotation.QueryBindingGetParam;
 import QueryBinder.Annotation.QueryBindingParam;
 import QueryBinder.Annotation.QueryBindingUrl;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 
 /**
  * 쿼리 요청을 위한 데이터 객체
@@ -41,7 +43,7 @@ public class QueryMap extends java.util.HashMap<String, Object> {
      * @throws IllegalAccessException
      * @throws NoSuchMethodException
      */
-    public QueryMap(QueryRequestable obj) throws InvocationTargetException, IllegalAccessException {
+    public QueryMap(QueryRequestable obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         super();
 
         // QueryRequestable 객체
@@ -55,62 +57,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         }
 
         // Parameter 가져오기: 클래스내부에 정의된 것을 가져옴
-        // Method
-        for (Method method : obj.getClass().getDeclaredMethods()) {
-            for (Annotation annotation : method.getDeclaredAnnotations()) {
-                method.setAccessible(true);                                             // Method 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                if (annotation instanceof QueryBindingGetParam) {
-                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-                else if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-
-                if (paramName == null || paramName.isEmpty()) continue;
-                // TODO: 형변환 처리
-
-                String value = (String) method.invoke(obj);
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
-            }
-        }
-        // Field
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            for (Annotation annotation : field.getDeclaredAnnotations()) {
-                field.setAccessible(true);                                             // Field 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                if (annotation instanceof QueryBindingGetParam) {
-                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-                else if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-
-                if (paramName == null || paramName.isEmpty()) continue;
-                // TODO: 형변환 처리
-
-                String value = (String) field.get(obj);
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
-            }
-        }
+        this.mappingMethods(obj);
+        this.mappingFields(obj);
         
     }
 
@@ -120,68 +68,19 @@ public class QueryMap extends java.util.HashMap<String, Object> {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public QueryMap(QueryBindingUrl obj) throws InvocationTargetException, IllegalAccessException {
+    public QueryMap(QueryBindingUrl obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         super();
 
         // URL 가져오기
         this.url = obj.value();
 
-        // Parameter 가져오기: 클래스내부에 정의된 것을 가져옴
-        // Method
-        for (Method method : obj.getClass().getDeclaredMethods()) {
-            for (Annotation annotation : method.getDeclaredAnnotations()) {
-                method.setAccessible(true);                                             // Method 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                if (annotation instanceof QueryBindingGetParam) {
-                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-                else if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-
-                if (paramName == null || paramName.isEmpty()) continue;
-                // TODO: 형변환 처리
-
-                String value = (String) method.invoke(obj);
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
-            }
-        }
-        // Field
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            for (Annotation annotation : field.getDeclaredAnnotations()) {
-                field.setAccessible(true);                                             // Field 접근 권한 설정
-                String paramName = null;
-                String defaultValue = null;
-                boolean isRequired = false;
-                if (annotation instanceof QueryBindingGetParam) {
-                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-                else if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    paramName = param.value();
-                    defaultValue = param.defaultValue();
-                    isRequired = param.isRequired();
-                }
-
-                if (paramName == null || paramName.isEmpty()) continue;
-                // TODO: 형변환 처리
-
-                String value = (String) field.get(obj);
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
-            }
+        this.mappingMethods(obj);
+        try {
+            this.mappingFields(obj);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -207,6 +106,88 @@ public class QueryMap extends java.util.HashMap<String, Object> {
 
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    private void mappingFields(Object obj) throws IllegalAccessException, UnsupportedEncodingException {
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            for (Annotation annotation : field.getDeclaredAnnotations()) {
+                // URL 가져오기
+                if(annotation instanceof QueryBindingUrl) {
+                    field.setAccessible(true);
+                    this.url = (String) field.get(obj);
+                    continue;
+                }
+
+                field.setAccessible(true);                                             // Field 접근 권한 설정
+                String paramName = null;
+                String defaultValue = null;
+                boolean isRequired = false;
+                boolean isEncode = false;
+                // Parameter 가져오기
+                if (annotation instanceof QueryBindingGetParam) {
+                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
+                    paramName = param.value();
+                    defaultValue = param.defaultValue();
+                    isRequired = param.isRequired();
+                    isEncode = param.isEncode();
+                }
+                else if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
+                    paramName = param.value();
+                    defaultValue = param.defaultValue();
+                    isRequired = param.isRequired();
+                }
+
+                if (paramName == null || paramName.isEmpty()) continue;
+                // TODO: 형변환 처리
+
+                String value = (String) field.get(obj);
+                if (isEncode) value = URLEncoder.encode(value, "UTF-8");
+                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
+                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
+            }
+        }
+    }
+
+    private void mappingMethods(Object obj) throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
+        for (Method method : obj.getClass().getDeclaredMethods()) {
+            for (Annotation annotation : method.getDeclaredAnnotations()) {
+                // URL 가져오기
+                if(annotation instanceof QueryBindingUrl) {
+                    method.setAccessible(true);
+                    this.url = (String) method.invoke(obj);
+                    continue;
+                }
+
+                method.setAccessible(true);                                             // Method 접근 권한 설정
+                String paramName = null;
+                String defaultValue = null;
+                boolean isRequired = false;
+                boolean isEncode = false;
+                // Parameter 가져오기
+                if (annotation instanceof QueryBindingGetParam) {
+                    QueryBindingGetParam param = (QueryBindingGetParam) annotation;
+                    paramName = param.value();
+                    defaultValue = param.defaultValue();
+                    isRequired = param.isRequired();
+                    isEncode = param.isEncode();
+                }
+                else if (annotation instanceof QueryBindingParam) {
+                    QueryBindingParam param = (QueryBindingParam) annotation;
+                    paramName = param.value();
+                    defaultValue = param.defaultValue();
+                    isRequired = param.isRequired();
+                }
+
+                if (paramName == null || paramName.isEmpty()) continue;
+                // TODO: 형변환 처리
+
+                String value = (String) method.invoke(obj);
+                if (isEncode) value = URLEncoder.encode(value, "UTF-8");
+                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
+                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
+            }
+        }
     }
 
     // GETTERs

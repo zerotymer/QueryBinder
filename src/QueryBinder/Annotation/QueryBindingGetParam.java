@@ -37,6 +37,12 @@ public @interface QueryBindingGetParam {
      */
     boolean isRequired() default false;
 
+    /**
+     * Need Encoding?
+     * @return
+     */
+    boolean isEncode() default false;
+
 
     // TODO: 컨버터 정의
 }
