@@ -3,7 +3,7 @@ package QueryBinder;
 import QueryBinder.Annotation.QueryBindingGetParam;
 import QueryBinder.Annotation.QueryBindingParam;
 import QueryBinder.Annotation.QueryBindingUrl;
-import QueryBinder.Exception.UrlDuplicatedException;
+import QueryBinder.Funtional.GetQueryRequest;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -11,6 +11,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * 쿼리 요청을 위한 데이터 객체
@@ -63,7 +67,6 @@ public class QueryMap extends java.util.HashMap<String, Object> {
         this.mappingFields(obj, obj.getClass());
     }
 
-
     /// METHODs
     @Override
     public String toString() {
@@ -88,14 +91,12 @@ public class QueryMap extends java.util.HashMap<String, Object> {
     }
 
     private <T extends QueryRequestable> void mappingFields(T obj, Class<?> cls)
-            throws IllegalAccessException, UnsupportedEncodingException, UrlDuplicatedException {
+            throws IllegalAccessException, UnsupportedEncodingException {
 
         for (Field field : cls.getDeclaredFields()) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
                 // URL 가져오기
                 if(annotation instanceof QueryBindingUrl) {
-                    if (this.url != null) throw new UrlDuplicatedException(obj.getClass().getName() + ": URL이 이미 정의되어 있습니다.");
-
                     field.setAccessible(true);
                     this.url = (String) field.get(obj);
                     continue;

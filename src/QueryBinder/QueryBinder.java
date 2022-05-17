@@ -1,12 +1,12 @@
 package QueryBinder;
 
-import QueryBinder.Annotation.QueryBindingParam;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,23 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
- * USE SINGLETON PATTERN
+ * USE PATTERN
  * @author 신현진
  */
 public class QueryBinder {
     /// FIELDs
 
     /// CONSTRUCTORs
+    public QueryBinder() {
+    }
 
     /// METHODs
+    // Getters & Setters
 
     @Deprecated
-    public static void getQuery(QueryMap query) {
+    public void getQuery(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -57,7 +56,7 @@ public class QueryBinder {
     }
 
     @Deprecated
-    public static Map<?, ?> requestQuery(QueryMap query) {
+    public Map<?, ?> requestQuery(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -87,7 +86,7 @@ public class QueryBinder {
     }
 
     @Deprecated
-    public static List<Map<?, ?>> requestQueryList(QueryMap query) {
+    public List<Map<?, ?>> requestQueryList(QueryMap query) {
         try {
             URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -127,7 +126,7 @@ public class QueryBinder {
      * @return
      * @throws MalformedURLException
      */
-    public static Map<?, ?> getRequest(String query) throws MalformedURLException {
+    public static String getRequest(String query) throws MalformedURLException {
         // URL check
         if (query.isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(query);
@@ -150,7 +149,7 @@ public class QueryBinder {
             }
             br.close();
 
-            return new JSONObject(response.toString()).toMap();
+            return response.toString();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,7 +165,7 @@ public class QueryBinder {
      * @return
      * @throws MalformedURLException
      */
-    public static Map<?, ?> getRequest(QueryMap map) throws MalformedURLException {
+    public static String getRequest(QueryMap map) throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
@@ -192,7 +191,7 @@ public class QueryBinder {
             }
             br.close();
 
-            return QueryBinder.JsonToMap(response.toString());
+            return response.toString();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -208,7 +207,7 @@ public class QueryBinder {
      * @return
      * @throws MalformedURLException
      */
-    public static List<?> getRequestList(QueryMap map) throws MalformedURLException {
+    public static String getRequestList(QueryMap map) throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
@@ -233,8 +232,8 @@ public class QueryBinder {
                 response.append(inputLine);
             }
             br.close();
-            
-            return QueryBinder.jsonToArray(response.toString());
+
+            return response.toString();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -244,11 +243,21 @@ public class QueryBinder {
         return null;
     }
 
-
-    private static Map<?, ?> JsonToMap(String json) {
+    /**
+     * Json을 Map으로 변환한다.
+     * @param json
+     * @return
+     */
+    public static Map<?, ?> JsonToMap(String json) {
         return new JSONObject(json).toMap();
     }
-    private static List<?> jsonToArray(String json) {
+
+    /**
+     * Json을 Array로 변환한다.
+     * @param json
+     * @return
+     */
+    public static List<?> jsonToArray(String json) {
         ArrayList<Map<?, ?>> list = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -256,6 +265,8 @@ public class QueryBinder {
         } catch (JSONException e) {
             e.printStackTrace();
             System.err.println(QueryBinder.class.getName() + " : " + e.getMessage());
+            System.err.println("STRING DATA ========================================");
+            System.err.println(json);
         }
         return list;
     }
@@ -264,84 +275,13 @@ public class QueryBinder {
 
 
     @Deprecated
-    public static Map<?, ?> postRequest(QueryMap map) {
+    public Map<?, ?> postRequest(QueryMap map) {
         return null;
     }
 
     @Deprecated
-    public static Map<?, ?> postRequest(String url, QueryMap map) {
+    public Map<?, ?> postRequest(String url, QueryMap map) {
         return null;
     }
 
-    @Deprecated
-    public static QueryResponsible selectOne(QueryResponsible target, Map<?, ?> map)
-            throws IllegalAccessException, InvocationTargetException {
-
-        // Field annotations
-        for (Field field : target.getClass().getDeclaredFields()) {
-            for (Annotation annotation : field.getDeclaredAnnotations()) {
-                if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    if (map.containsKey(param.value()))
-                        field.set(target, map.get(param.value()));
-                }
-            }
-        }
-
-        // Method annotations
-        for (Method method : target.getClass().getDeclaredMethods()) {
-            for (Annotation annotation : method.getDeclaredAnnotations()) {
-                if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    if (map.containsKey(param.value()))
-                        method.invoke(target, map.get(param.value()));
-                }
-            }
-        }
-
-        return target;                  // For Channing
-    }
-
-    @Deprecated
-    public static <T extends QueryResponsible> T mapping(Map<?, ?> map, Class cls)
-            throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        Object target = cls.newInstance();
-
-        // Field annotations
-        for (Field field : target.getClass().getDeclaredFields()) {
-            for (Annotation annotation : field.getDeclaredAnnotations()) {
-                if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    if (map.containsKey(param.value()))
-                        field.set(target, map.get(param.value()));
-                }
-            }
-        }
-
-        // Method annotations
-        for (Method method : target.getClass().getDeclaredMethods()) {
-            for (Annotation annotation : method.getDeclaredAnnotations()) {
-                if (annotation instanceof QueryBindingParam) {
-                    QueryBindingParam param = (QueryBindingParam) annotation;
-                    if (map.containsKey(param.value()))
-                        method.invoke(target, map.get(param.value()).toString());
-                    else
-                        method.invoke(target, param.defaultValue());
-                }
-            }
-        }
-
-        return (T) target;
-//        return target;                  // For Channing
-    }
-
-    @Deprecated
-    public static <T extends QueryResponsible> List<T> mapping(List<Map<?, ?>> list, Class cls)
-            throws InvocationTargetException, IllegalAccessException, InstantiationException {
-        List<T> targets = new ArrayList<>();
-        for (Map<?, ?> map : list) {
-            QueryBinder.mapping(map, cls);
-        }
-        return targets;
-    }
 }

@@ -7,14 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Exception/NoUndefinedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Exception/UrlDuplicatedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Funtional/GetQueryRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Exception/NoUrlExcption.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Exception/UrlDuplicatedException.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +26,8 @@
       <list>
         <option value="Enum" />
         <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -105,7 +105,10 @@
       <workItem from="1652313812488" duration="9948000" />
       <workItem from="1652335057880" duration="2977000" />
       <workItem from="1652403195286" duration="1906000" />
-      <workItem from="1652406966313" duration="6178000" />
+      <workItem from="1652406966313" duration="6961000" />
+      <workItem from="1652424284758" duration="11000" />
+      <workItem from="1652427722026" duration="1722000" />
+      <workItem from="1652666741311" duration="23779000" />
     </task>
     <servers />
   </component>
