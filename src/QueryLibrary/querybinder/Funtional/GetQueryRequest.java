@@ -1,6 +1,6 @@
-package QueryBinder.Funtional;
+package querylibrary.querybinder.Funtional;
 
-import QueryBinder.QueryMap;
+import querylibrary.querybinder.QueryMap;
 
 @FunctionalInterface
 public interface GetQueryRequest {

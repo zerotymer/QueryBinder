@@ -1,9 +1,8 @@
-package QueryBinder;
+package querylibrary.querybinder;
 
-import QueryBinder.Annotation.QueryBindingGetParam;
-import QueryBinder.Annotation.QueryBindingParam;
-import QueryBinder.Annotation.QueryBindingUrl;
-import QueryBinder.Funtional.GetQueryRequest;
+import querylibrary.querybinder.Annotation.QueryBindingGetParam;
+import querylibrary.querybinder.Annotation.QueryBindingParam;
+import querylibrary.querybinder.Annotation.QueryBindingUrl;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -11,10 +10,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 쿼리 요청을 위한 데이터 객체
@@ -23,6 +20,8 @@ import java.util.stream.Stream;
 public class QueryMap extends java.util.HashMap<String, Object> {
     /// FIELDs
     private String url = null;
+    private Map<String, String> header = null;
+    private byte[] data = null;
 
     /// CONSTRUCTORs
     /**
@@ -68,28 +67,15 @@ public class QueryMap extends java.util.HashMap<String, Object> {
     }
 
     /// METHODs
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.url);
-        sb.append("?");
-        for (String key : this.keySet())
-            sb.append(key + "=" + this.get(key) + "&");
 
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
-    }
-    public String toQueryString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.url);
-        sb.append("?");
-        for (String key : this.keySet())
-            sb.append(key + "=" + this.get(key) + "&");
-
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
-    }
-
+    /**
+     * 클래스내부에 정의된 필드를 바인딩하는 메소드
+     * @param obj 쿼리 정보를 담은 객체
+     * @param cls 객체 타입
+     * @param <T> 객체 타입
+     * @throws IllegalAccessException
+     * @throws UnsupportedEncodingException
+     */
     private <T extends QueryRequestable> void mappingFields(T obj, Class<?> cls)
             throws IllegalAccessException, UnsupportedEncodingException {
 
@@ -135,6 +121,15 @@ public class QueryMap extends java.util.HashMap<String, Object> {
             this.mappingFields(obj, cls.getSuperclass());
     }
 
+    /**
+     * 클래스내부에 정의된 메소드를 바인딩하는 메소드
+     * @param obj 쿼리 정보를 담은 객체
+     * @param cls 객체 타입
+     * @param <T> 객체 타입
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws UnsupportedEncodingException
+     */
     private <T extends QueryRequestable> void mappingMethods(T obj, Class<?> cls)
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         for (Method method : cls.getDeclaredMethods()) {
@@ -179,9 +174,49 @@ public class QueryMap extends java.util.HashMap<String, Object> {
             this.mappingMethods(obj, cls.getSuperclass());
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.url);
+        sb.append("?");
+        for (String key : this.keySet())
+            sb.append(key + "=" + this.get(key) + "&");
+
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    /**
+     * 쿼리 정보를 URL로 바꿔주는 메소드
+     * @return
+     */
+    public String toQueryString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.url);
+        sb.append("?");
+        for (String key : this.keySet())
+            sb.append(key + "=" + this.get(key) + "&");
+
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    public void headerPut(String key, String value) {
+        if (this.header == null) this.header = new HashMap<>();
+        this.header.put(key, value);
+    }
+
     // GETTERs
     public String getUrl() { return url; }
+    public Map<?, ?> getHeader() { return header; }
+    public byte[] getBytes() { return data; }
 
     // SETTERs
     public void setUrl(String url) { this.url = url; }
+
+    /**
+     * Post에 사용될 데이터를 설정한다.
+     * @param data
+     */
+    public void setData(byte[] data) { this.data = data; }
 }

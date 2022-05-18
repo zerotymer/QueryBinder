@@ -7,13 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/QueryBinder/Funtional/GetQueryRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Exception/UrlDuplicatedException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingGetParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingGetParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingSetParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingSetParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Annotation/QueryBindingUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Exception/NoUndefinedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Exception/NoUndefinedException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Funtional/GetQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Funtional/GetQueryRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryRequestable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryResponsible.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryBinder/Request/HttpRequestMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpRequestMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/MyBoardVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRequestVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestResponseVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,9 +44,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/QueryBinder/QueryBinder.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/QueryBinder/QueryMap.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/QueryBinder/QueryResponsible.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryResponsible.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,7 +117,9 @@
       <workItem from="1652406966313" duration="6961000" />
       <workItem from="1652424284758" duration="11000" />
       <workItem from="1652427722026" duration="1722000" />
-      <workItem from="1652666741311" duration="23779000" />
+      <workItem from="1652666741311" duration="24863000" />
+      <workItem from="1652832654921" duration="964000" />
+      <workItem from="1652833662451" duration="8840000" />
     </task>
     <servers />
   </component>

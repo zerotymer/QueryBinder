@@ -1,4 +1,4 @@
-package QueryBinder.Exception;
+package querylibrary.querybinder.Exception;
 
 /**
  * URL not found exception

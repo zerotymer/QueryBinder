@@ -1,8 +1,8 @@
 package Testing;
 
-import QueryBinder.Annotation.QueryBindingUrl;
-import QueryBinder.Annotation.QueryBindingParam;
-import QueryBinder.QueryResponsible;
+import querylibrary.querybinder.Annotation.QueryBindingUrl;
+import querylibrary.querybinder.Annotation.QueryBindingParam;
+import querylibrary.querybinder.QueryResponsible;
 
 @QueryBindingUrl
 public class TestResponseVO implements QueryResponsible {

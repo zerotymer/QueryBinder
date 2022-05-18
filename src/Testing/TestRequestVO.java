@@ -1,12 +1,8 @@
 package Testing;
 
-import QueryBinder.Annotation.QueryBindingGetParam;
-import QueryBinder.Annotation.QueryBindingUrl;
-import QueryBinder.Annotation.QueryBindingParam;
-import QueryBinder.QueryRequestable;
-import QueryBinder.Request.HttpRequestMethods;
-
-import java.util.HashMap;
+import querylibrary.querybinder.Annotation.QueryBindingGetParam;
+import querylibrary.querybinder.Annotation.QueryBindingUrl;
+import querylibrary.querybinder.QueryRequestable;
 
 @QueryBindingUrl(value = "http://localhost:8080/myboard/list.ajax")
 public class TestRequestVO implements QueryRequestable{

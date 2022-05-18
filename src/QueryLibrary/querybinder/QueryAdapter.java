@@ -1,12 +1,14 @@
-package QueryBinder;
+package querylibrary.querybinder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import querylibrary.querybinder.Request.HttpRequestMethods;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,58 +20,42 @@ import java.util.Map;
  * USE PATTERN
  * @author 신현진
  */
-public class QueryBinder {
+public class QueryAdapter {
     /// FIELDs
 
     /// CONSTRUCTORs
-    public QueryBinder() {
+    public QueryAdapter() {
     }
 
     /// METHODs
     // Getters & Setters
 
-    @Deprecated
-    public void getQuery(QueryMap query) {
+    /**
+     * 쿼리 요청을 실행하기 위한 메소드
+     * @param query 쿼리 문자열(url)
+     * @param method 쿼리 메소드(GET, POST, PUT, DELETE)
+     * @return
+     * @throws MalformedURLException
+     */
+    public String request(String query, HttpRequestMethods method)
+            throws MalformedURLException {
+        // URL check
+        if (query.isEmpty()) throw new MalformedURLException("URL is empty");
+        URL url = new URL(query);
+
         try {
-            URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");                // TODO: check
-            for (String key : query.keySet()) {
-                conn.setRequestProperty(key, query.get(key).toString());
-            }
+            conn.setRequestMethod(method.toString());
 
-            int responseCode = conn.getResponseCode();
-            BufferedReader br = new BufferedReader(
-                                    new InputStreamReader(
-                                        responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
+            // Header 설정
 
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-            System.err.println(response.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Deprecated
-    public Map<?, ?> requestQuery(QueryMap query) {
-        try {
-            URL url = new URL(query.getUrl());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");                // TODO: check
-            for (String key : query.keySet()) {
-                conn.setRequestProperty(key, query.get(key).toString());
-            }
-
+            // Response
             int responseCode = conn.getResponseCode();
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
 
+            // TO STRING
             String inputLine;
             StringBuffer response = new StringBuffer();
             while ((inputLine = br.readLine()) != null) {
@@ -77,29 +63,59 @@ public class QueryBinder {
             }
             br.close();
 
-            return new JSONObject(response.toString()).toMap();
-        } catch (Exception e) {
+            return response.toString();
+
+        } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Query failed");
         }
 
         return null;
     }
 
-    @Deprecated
-    public List<Map<?, ?>> requestQueryList(QueryMap query) {
+    /**
+     * 쿼리 요청을 실행하기 위한 메소드
+     * @param map
+     * @param method
+     * @return
+     * @throws MalformedURLException
+     */
+    public String request(QueryMap map, HttpRequestMethods method)
+            throws MalformedURLException {
+        // URL check
+        if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
+        URL url = new URL(map.toQueryString());
+
         try {
-            URL url = new URL(query.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");                // TODO: check
-            for (String key : query.keySet()) {
-                conn.setRequestProperty(key, query.get(key).toString());
+            conn.setRequestMethod(method.toString());
+
+            // Header 설정
+            Map<?, ?> header = map.getHeader();
+            if (header != null) {
+                header.keySet().forEach(key -> {
+                    conn.setRequestProperty(key.toString(), (String) header.get(key));
+                });
             }
 
+            // Body 설정
+
+
+            // Post 전송
+            if (method == HttpRequestMethods.POST) {
+                conn.setDoOutput(true);
+                OutputStream os = conn.getOutputStream();
+                os.write(map.getBytes());
+                os.flush();
+            }
+
+            // Response
             int responseCode = conn.getResponseCode();
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
 
+            // TO STRING
             String inputLine;
             StringBuffer response = new StringBuffer();
             while ((inputLine = br.readLine()) != null) {
@@ -107,14 +123,11 @@ public class QueryBinder {
             }
             br.close();
 
-            ArrayList<Map<?, ?>> list = new ArrayList();
-            JSONArray jsonArray = new JSONArray(response.toString());
-            jsonArray.forEach(json -> {
-                list.add(new JSONObject(json.toString()).toMap());
-            });
-            return list;
-        } catch (Exception e) {
+            return response.toString();
+
+        } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Query failed");
         }
 
         return null;
@@ -124,16 +137,15 @@ public class QueryBinder {
      * GET 방식의 쿼리를 요청하여 결과를 반환한다.
      * @param query
      * @return
-     * @throws MalformedURLException
      */
-    public static String getRequest(String query) throws MalformedURLException {
-        // URL check
-        if (query.isEmpty()) throw new MalformedURLException("URL is empty");
-        URL url = new URL(query);
-
+    @Deprecated
+    public String getRequest(URL url, String query) {
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("GET");                                               // METHOD.GET
+
+            // Set Header
+            //conn.setRequestProperty("Content-Type", "application/json");
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -141,9 +153,9 @@ public class QueryBinder {
                     new InputStreamReader(
                             responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
 
+            // TO STRING
             String inputLine;
             StringBuffer response = new StringBuffer();
-
             while ((inputLine = br.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -163,19 +175,15 @@ public class QueryBinder {
      * GET 방식의 쿼리를 요청하여 결과를 반환한다.
      * @param map
      * @return
-     * @throws MalformedURLException
      */
-    public static String getRequest(QueryMap map) throws MalformedURLException {
-        // URL check
-        if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
-        URL url = new URL(map.toQueryString());
-
+    @Deprecated
+    public String getRequest(URL url, QueryMap map) {
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("GET");                                               // METHOD.GET
 
-            // Set Property - for matadata
-//            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+            // Set Header
+            // conn.setRequestProperty("Content-Type", "application/json");
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -183,9 +191,9 @@ public class QueryBinder {
                 new InputStreamReader(
                     responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
 
+            // TO STRING
             String inputLine;
             StringBuffer response = new StringBuffer();
-
             while ((inputLine = br.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -202,22 +210,26 @@ public class QueryBinder {
     }
 
     /**
-     * GET 방식의 쿼리를 요청하여 결과를 반환한다. (리스트)
-     * @param map
+     * POST 방식의 쿼리를 요청하여 결과를 반환한다.
+     * @param query
      * @return
      * @throws MalformedURLException
      */
-    public static String getRequestList(QueryMap map) throws MalformedURLException {
-        // URL check
-        if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
-        URL url = new URL(map.toQueryString());
-
+    @Deprecated
+    public String postRequest(URL url, String query) {
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");                                               // METHOD.POST
 
-            // Set Property - for metadata
-//            map.keySet().forEach(key -> conn.setRequestProperty(key, map.get(key).toString()));
+            // Set Header
+            conn.setRequestProperty("Content-Type", "application/json");
+
+
+            // Set Body
+            conn.setDoOutput(true);
+            OutputStream os = conn.getOutputStream();
+            os.write(query.getBytes());
+            os.flush();
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -225,9 +237,9 @@ public class QueryBinder {
                     new InputStreamReader(
                             responseCode == HttpURLConnection.HTTP_OK ? conn.getInputStream() : conn.getErrorStream()));
 
+            // TO STRING
             String inputLine;
             StringBuffer response = new StringBuffer();
-
             while ((inputLine = br.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -242,6 +254,7 @@ public class QueryBinder {
 
         return null;
     }
+
 
     /**
      * Json을 Map으로 변환한다.
@@ -264,7 +277,7 @@ public class QueryBinder {
             jsonArray.forEach(jsonObject -> list.add(new JSONObject(jsonObject.toString()).toMap()));
         } catch (JSONException e) {
             e.printStackTrace();
-            System.err.println(QueryBinder.class.getName() + " : " + e.getMessage());
+            System.err.println(QueryAdapter.class.getName() + " : " + e.getMessage());
             System.err.println("STRING DATA ========================================");
             System.err.println(json);
         }
@@ -273,15 +286,5 @@ public class QueryBinder {
 
 
 
-
-    @Deprecated
-    public Map<?, ?> postRequest(QueryMap map) {
-        return null;
-    }
-
-    @Deprecated
-    public Map<?, ?> postRequest(String url, QueryMap map) {
-        return null;
-    }
 
 }

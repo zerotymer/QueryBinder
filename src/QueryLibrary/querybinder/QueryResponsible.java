@@ -1,4 +1,4 @@
-package QueryBinder;
+package querylibrary.querybinder;
 
 
 @FunctionalInterface

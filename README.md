@@ -1,1 +1,1 @@
-# QueryBinder
+# QueryLibrary.QueryBinder

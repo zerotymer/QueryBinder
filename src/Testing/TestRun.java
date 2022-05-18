@@ -1,7 +1,8 @@
 package Testing;
 
-import QueryBinder.QueryBinder;
-import QueryBinder.QueryMap;
+import querylibrary.querybinder.QueryAdapter;
+import querylibrary.querybinder.QueryMap;
+import querylibrary.querybinder.Request.HttpRequestMethods;
 
 import java.util.List;
 
@@ -10,15 +11,9 @@ public class TestRun {
 
         TestRequestVO testRequestVO = new TestRequestVO();
         QueryMap queryMap = new QueryMap(testRequestVO);
-        List<?> list = QueryBinder.jsonToArray(QueryBinder.getRequestList(queryMap));     // One
+        QueryAdapter adapter = new QueryAdapter();
+        List<?> list = QueryAdapter.jsonToArray(adapter.request(queryMap, HttpRequestMethods.GET));     // One
 
         System.out.println(list);
-
-//        System.out.println(map);
-//        MyBoardVO vo = QueryBinder.<MyBoardVO>mapping(map, MyBoardVO.class);
-//        System.out.println(vo.toString());
-
-
-
     }
 }

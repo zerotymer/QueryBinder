@@ -1,4 +1,4 @@
-package QueryBinder.Annotation;
+package querylibrary.querybinder.Annotation;
 
 import java.lang.annotation.*;
 
