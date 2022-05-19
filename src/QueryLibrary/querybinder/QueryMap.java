@@ -109,10 +109,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 if (paramName == null || paramName.isEmpty()) continue;
                 // TODO: 형변환 처리
 
-                String value = (String) field.get(obj);
-                if (isEncode) value = URLEncoder.encode(value, "UTF-8");
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
+                String value = check(field.get(obj), defaultValue, isRequired, isEncode);
+                if (value != null) this.put(paramName, value);
             }
         }
 
@@ -157,15 +155,15 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                     paramName = param.value();
                     defaultValue = param.defaultValue();
                     isRequired = param.isRequired();
+                    isEncode = param.isEncode();
                 }
 
-                if (paramName == null || paramName.isEmpty()) continue;
-                // TODO: 형변환 처리
+                if (paramName == null || paramName.isEmpty()) continue;                     // 이름 미지정
 
-                String value = (String) method.invoke(obj);
-                if (isEncode) value = URLEncoder.encode(value, "UTF-8");
-                if (value != null && !value.isEmpty()) this.put(paramName, value);          // value 등록.
-                else if (isRequired) this.put(paramName, defaultValue);                     // Default 등록
+                // TODO: 형변환 처리
+                
+                String value = check(method.invoke(obj), defaultValue, isRequired, isEncode);
+                if (value != null) this.put(paramName, value);                              // value 등록.
             }
         }
 
@@ -204,6 +202,21 @@ public class QueryMap extends java.util.HashMap<String, Object> {
     public void headerPut(String key, String value) {
         if (this.header == null) this.header = new HashMap<>();
         this.header.put(key, value);
+    }
+
+    private String check(Object value, String defaultValue, boolean isRequired, boolean isEncode)
+            throws UnsupportedEncodingException {
+        // 기본값과 비교
+        String result = null;
+        if (value != null) {
+            result = String.valueOf(value);
+            if (result.isEmpty()) result = null;
+            else if (result.equals(defaultValue)) result = null;
+        }
+
+        if (result != null)     return isEncode ? URLEncoder.encode(result, "UTF-8"): result;
+        else if (isRequired)    return isEncode ? URLEncoder.encode(defaultValue, "UTF-8"): defaultValue;
+        else                    return null;
     }
 
     // GETTERs
