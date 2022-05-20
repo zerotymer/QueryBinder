@@ -14,16 +14,18 @@ import java.net.MalformedURLException;
 
 public interface QueryRequestable {
     /// FIELDs
-    HttpRequestMethods method = HttpRequestMethods.GET;
-
     default QueryMap getQueryMap()
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         return new QueryMap(this);
     }
 
+    default HttpRequestMethods getMethod() {
+        return HttpRequestMethods.GET;
+    }
+
     default String request()
             throws UnsupportedEncodingException, InvocationTargetException, IllegalAccessException, MalformedURLException {
         QueryMap map = new QueryMap(this);
-        return QueryAdapter.staticRequest(map, method);
+        return QueryAdapter.staticRequest(map, getMethod());
     }
 }

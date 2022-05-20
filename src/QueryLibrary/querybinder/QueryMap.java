@@ -82,19 +82,21 @@ public class QueryMap extends java.util.HashMap<String, Object> {
 
         for (Field field : cls.getDeclaredFields()) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
+                boolean access = field.isAccessible();
+                field.setAccessible(true);                             // Method 접근 권한 설정
                 // URL 가져오기
                 if(annotation instanceof QueryBindingUrl) {
-                    field.setAccessible(true);
                     this.url = (String) field.get(obj);
+                    field.setAccessible(access);
                     continue;
                 }
                 if(annotation instanceof QueryBindingGetPostData) {
                     byte[] data = (byte[]) field.get(obj);
                     if (data != null) this.data = data;
+                    field.setAccessible(access);
                     continue;
                 }
 
-                field.setAccessible(true);                                             // Field 접근 권한 설정
                 String paramName = null, defaultValue = null;
                 boolean isRequired = false, isEncode = false;
                 // Parameter 가져오기
@@ -117,6 +119,7 @@ public class QueryMap extends java.util.HashMap<String, Object> {
 
                 String value = check(field.get(obj), defaultValue, isRequired, isEncode);
                 if (value != null) this.put(paramName, value);
+                field.setAccessible(access);
             }
         }
 
@@ -138,19 +141,21 @@ public class QueryMap extends java.util.HashMap<String, Object> {
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         for (Method method : cls.getDeclaredMethods()) {
             for (Annotation annotation : method.getDeclaredAnnotations()) {
+                boolean access = method.isAccessible();
+                method.setAccessible(true);                             // Method 접근 권한 설정
                 // URL 가져오기
                 if(annotation instanceof QueryBindingUrl) {
-                    method.setAccessible(true);
                     this.url = (String) method.invoke(obj);
+                    method.setAccessible(access);
                     continue;
                 }
                 if(annotation instanceof QueryBindingGetPostData) {
                     byte[] data = (byte[]) method.invoke(obj);
                     if (data != null) this.data = data;
+                    method.setAccessible(access);
                     continue;
                 }
 
-                method.setAccessible(true);                                             // Method 접근 권한 설정
                 String paramName = null, defaultValue = null;
                 boolean isRequired = false, isEncode = false;
                 // Parameter 가져오기
@@ -175,6 +180,8 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 
                 String value = check(method.invoke(obj), defaultValue, isRequired, isEncode);
                 if (value != null) this.put(paramName, value);                              // value 등록.
+
+                method.setAccessible(access);
             }
         }
 
