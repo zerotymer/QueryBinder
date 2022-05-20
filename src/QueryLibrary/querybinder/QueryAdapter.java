@@ -99,10 +99,11 @@ public class QueryAdapter {
 
 
             // Post 전송
-            if (method == HttpRequestMethods.POST) {
+            byte[] bytes = map.getBytes();
+            if (method == HttpRequestMethods.POST && bytes != null) {
                 conn.setDoOutput(true);
                 OutputStream os = conn.getOutputStream();
-                os.write(map.getBytes());
+                os.write(bytes);
                 os.flush();
             }
 

@@ -8,7 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +32,9 @@
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRequestVO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRun.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetParam.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetPostData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingUrl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryResponsible.java" root0="FORCE_HIGHLIGHTING" />
@@ -115,7 +117,8 @@
       <workItem from="1653008863112" duration="42000" />
       <workItem from="1653009467088" duration="670000" />
       <workItem from="1653031686499" duration="503000" />
-      <workItem from="1653032491031" duration="710000" />
+      <workItem from="1653032491031" duration="774000" />
+      <workItem from="1653033449528" duration="65000" />
     </task>
     <servers />
   </component>
