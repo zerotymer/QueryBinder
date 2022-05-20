@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +30,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRequestVO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRun.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetParam.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryResponsible.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -108,7 +109,8 @@
       <workItem from="1652832654921" duration="964000" />
       <workItem from="1652833662451" duration="9546000" />
       <workItem from="1652933127872" duration="1988000" />
-      <workItem from="1652939403176" duration="2506000" />
+      <workItem from="1652939403176" duration="2794000" />
+      <workItem from="1653006171451" duration="1163000" />
     </task>
     <servers />
   </component>
