@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryRequestable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +111,9 @@
       <workItem from="1652833662451" duration="9546000" />
       <workItem from="1652933127872" duration="1988000" />
       <workItem from="1652939403176" duration="2794000" />
-      <workItem from="1653006171451" duration="1163000" />
+      <workItem from="1653006171451" duration="1299000" />
+      <workItem from="1653008863112" duration="42000" />
+      <workItem from="1653009467088" duration="37000" />
     </task>
     <servers />
   </component>
