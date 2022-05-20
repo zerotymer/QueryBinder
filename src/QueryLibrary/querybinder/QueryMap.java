@@ -1,6 +1,7 @@
 package querylibrary.querybinder;
 
 import querylibrary.querybinder.Annotation.QueryBindingGetParam;
+import querylibrary.querybinder.Annotation.QueryBindingGetPostData;
 import querylibrary.querybinder.Annotation.QueryBindingParam;
 import querylibrary.querybinder.Annotation.QueryBindingUrl;
 
@@ -87,6 +88,11 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                     this.url = (String) field.get(obj);
                     continue;
                 }
+                if(annotation instanceof QueryBindingGetPostData) {
+                    byte[] data = (byte[]) field.get(obj);
+                    if (data != null) this.data = data;
+                    continue;
+                }
 
                 field.setAccessible(true);                                             // Field 접근 권한 설정
                 String paramName = null, defaultValue = null;
@@ -136,6 +142,11 @@ public class QueryMap extends java.util.HashMap<String, Object> {
                 if(annotation instanceof QueryBindingUrl) {
                     method.setAccessible(true);
                     this.url = (String) method.invoke(obj);
+                    continue;
+                }
+                if(annotation instanceof QueryBindingGetPostData) {
+                    byte[] data = (byte[]) method.invoke(obj);
+                    if (data != null) this.data = data;
                     continue;
                 }
 
@@ -231,5 +242,5 @@ public class QueryMap extends java.util.HashMap<String, Object> {
      * Post에 사용될 데이터를 설정한다.
      * @param data
      */
-    public void setData(byte[] data) { this.data = data; }
+    public void setBytes(byte[] data) { this.data = data; }
 }
