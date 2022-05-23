@@ -7,9 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingGetContent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentBinary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentFormData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentFormUrlEncoded.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentGraphQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentNone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentRaw.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingGetPostData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="AnnotationType" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -32,13 +42,15 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRequestVO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRun.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetContent.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetParam.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetPostData.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingUrl.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/QueryResponsible.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Request/HttpContent.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Request/HttpContentFormUrlEncoded.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,22 +63,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Environment/json/json-20220320.jar",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Environment/json/json-20220320.jar&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Workspace\QueryBinder\src\querylibrary" />
@@ -125,7 +137,8 @@
       <workItem from="1653032491031" duration="774000" />
       <workItem from="1653033449528" duration="666000" />
       <workItem from="1653265012145" duration="209000" />
-      <workItem from="1653265342198" duration="298000" />
+      <workItem from="1653265342198" duration="15802000" />
+      <workItem from="1653288319085" duration="359000" />
     </task>
     <servers />
   </component>

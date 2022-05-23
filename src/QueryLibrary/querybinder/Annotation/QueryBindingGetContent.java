@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Target({ElementType.FIELD, ElementType.METHOD})
-public @interface QueryBindingGetPostData {
+public @interface QueryBindingGetContent {
 }

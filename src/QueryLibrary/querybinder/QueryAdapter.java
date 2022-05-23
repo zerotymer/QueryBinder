@@ -88,18 +88,14 @@ public class QueryAdapter {
             conn.setRequestMethod(method.toString());
 
             // Header 설정
-            Map<?, ?> header = map.getHeader();
-            if (header != null) {
-                header.keySet().forEach(key -> {
-                    conn.setRequestProperty(key.toString(), (String) header.get(key));
+            if (!map.isEmpty(QueryMap.MapType.HEADER)) {
+                map.keySet(QueryMap.MapType.HEADER).forEach(key -> {
+                    conn.setRequestProperty(key, map.get(key, QueryMap.MapType.HEADER));
                 });
             }
 
-            // Body 설정
-
-
-            // Post 전송
-            byte[] bytes = map.getBytes();
+            // Content - Post 전송
+            byte[] bytes = map.getContent().getBytes();
             if (method == HttpRequestMethods.POST && bytes != null) {
                 conn.setDoOutput(true);
                 OutputStream os = conn.getOutputStream();
@@ -194,21 +190,18 @@ public class QueryAdapter {
             conn.setRequestMethod(method.toString());
 
             // Header 설정
-            Map<?, ?> header = map.getHeader();
-            if (header != null) {
-                header.keySet().forEach(key -> {
-                    conn.setRequestProperty(key.toString(), (String) header.get(key));
+            if (!map.isEmpty(QueryMap.MapType.HEADER)) {
+                map.keySet(QueryMap.MapType.HEADER).forEach(key -> {
+                    conn.setRequestProperty(key, map.get(key, QueryMap.MapType.HEADER));
                 });
             }
 
-            // Body 설정
-
-
-            // Post 전송
-            if (method == HttpRequestMethods.POST) {
+            // Content - Post 전송
+            byte[] bytes = map.getContent().getBytes();
+            if (method == HttpRequestMethods.POST && bytes != null) {
                 conn.setDoOutput(true);
                 OutputStream os = conn.getOutputStream();
-                os.write(map.getBytes());
+                os.write(bytes);
                 os.flush();
             }
 
