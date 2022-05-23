@@ -3,6 +3,7 @@ package querylibrary.querybinder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import querylibrary.querybinder.Request.HttpContent;
 import querylibrary.querybinder.Request.HttpRequestMethods;
 
 import java.io.BufferedReader;
@@ -77,11 +78,13 @@ public class QueryAdapter {
      * @return
      * @throws MalformedURLException
      */
-    public String request(QueryMap map, HttpRequestMethods method)
+    public String request(QueryMap map)
             throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
+
+        HttpRequestMethods method = map.getMethod();
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -95,13 +98,17 @@ public class QueryAdapter {
             }
 
             // Content - Post 전송
-            byte[] bytes = map.getContent().getBytes();
-            if (method == HttpRequestMethods.POST && bytes != null) {
-                conn.setDoOutput(true);
-                OutputStream os = conn.getOutputStream();
-                os.write(bytes);
-                os.flush();
+            HttpContent content = map.getContent();
+            if (content != null) {
+                byte[] bytes = map.getContent().getBytes();
+                if (method == HttpRequestMethods.POST && bytes != null) {
+                    conn.setDoOutput(true);
+                    OutputStream os = conn.getOutputStream();
+                    os.write(bytes);
+                    os.flush();
+                }
             }
+
 
             // Response
             int responseCode = conn.getResponseCode();
@@ -179,11 +186,13 @@ public class QueryAdapter {
      * @return
      * @throws MalformedURLException
      */
-    public static String staticRequest(QueryMap map, HttpRequestMethods method)
+    public static String staticRequest(QueryMap map)
             throws MalformedURLException {
         // URL check
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
+
+        HttpRequestMethods method = map.getMethod();
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -197,12 +206,15 @@ public class QueryAdapter {
             }
 
             // Content - Post 전송
-            byte[] bytes = map.getContent().getBytes();
-            if (method == HttpRequestMethods.POST && bytes != null) {
-                conn.setDoOutput(true);
-                OutputStream os = conn.getOutputStream();
-                os.write(bytes);
-                os.flush();
+            HttpContent content = map.getContent();
+            if (content != null) {
+                byte[] bytes = map.getContent().getBytes();
+                if (method == HttpRequestMethods.POST && bytes != null) {
+                    conn.setDoOutput(true);
+                    OutputStream os = conn.getOutputStream();
+                    os.write(bytes);
+                    os.flush();
+                }
             }
 
             // Response

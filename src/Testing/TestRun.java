@@ -1,5 +1,6 @@
 package Testing;
 
+import org.json.JSONObject;
 import querylibrary.querybinder.QueryAdapter;
 import querylibrary.querybinder.QueryMap;
 import querylibrary.querybinder.Request.HttpRequestMethods;
@@ -12,8 +13,9 @@ public class TestRun {
         TestRequestVO testRequestVO = new TestRequestVO();
         QueryMap queryMap = new QueryMap(testRequestVO);
         QueryAdapter adapter = new QueryAdapter();
-        List<?> list = QueryAdapter.jsonToArray(adapter.request(queryMap, HttpRequestMethods.GET));     // One
+        System.out.println(adapter.request(queryMap));
+//        JSONObject object = new JSONObject(adapter.request(queryMap, HttpRequestMethods.GET));     // One
 
-        System.out.println(list);
+//        System.out.println(object);
     }
 }

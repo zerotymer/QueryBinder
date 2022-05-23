@@ -26,6 +26,7 @@ public interface QueryRequestable {
     default String request()
             throws UnsupportedEncodingException, InvocationTargetException, IllegalAccessException, MalformedURLException {
         QueryMap map = new QueryMap(this);
-        return QueryAdapter.staticRequest(map, getMethod());
+        map.setMethod(HttpRequestMethods.GET);
+        return QueryAdapter.staticRequest(map);
     }
 }

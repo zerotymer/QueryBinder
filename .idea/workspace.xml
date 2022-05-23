@@ -7,19 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingGetContent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentBinary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentFormData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentFormUrlEncoded.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentGraphQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentNone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Request/HttpContentRaw.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/querybinder/Annotation/QueryBindingGetPostData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QueryLibrary/querybinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +31,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRequestVO.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Testing/TestResponseVO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Testing/TestRun.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetContent.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingGetParam.java" root0="FORCE_HIGHLIGHTING" />
@@ -138,7 +129,7 @@
       <workItem from="1653033449528" duration="666000" />
       <workItem from="1653265012145" duration="209000" />
       <workItem from="1653265342198" duration="15802000" />
-      <workItem from="1653288319085" duration="359000" />
+      <workItem from="1653288319085" duration="860000" />
     </task>
     <servers />
   </component>
