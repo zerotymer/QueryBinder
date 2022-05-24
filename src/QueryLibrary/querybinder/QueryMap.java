@@ -75,7 +75,8 @@ public class QueryMap implements Map<String, String> {
      * @throws NoSuchMethodException
      * @implSpec Implementation Requirements:
      * <br> 1. 클래스에 정의한 {@link QueryBindingUrl}을 찾아서 URL 값을 설정한다.
-     * <br> 2. 클래스에 정의한 {@link QueryBindingGetParam}({@link QueryBindingParam})을 찾아서 Method, Field를 찾아서 값을 설정한다.
+     * <br> 2. {@link QueryRequestable.getMethod()}를 찾아서 METHOD 값을 설정한다.
+     * <br> 3. 클래스에 정의한 {@link QueryBindingGetParam}({@link QueryBindingParam})을 찾아서 Method, Field를 찾아서 값을 설정한다.
      *
      */
     public QueryMap(QueryRequestable obj)
@@ -87,11 +88,13 @@ public class QueryMap implements Map<String, String> {
         // URL 가져오기: 클래스에 정의된 것만 가져옴
         for (Annotation anno : obj.getClass().getDeclaredAnnotations()) {
             if (anno instanceof QueryBindingUrl) {
-                QueryBindingUrl urlAnno = (QueryBindingUrl) anno;
                 this.url = ((QueryBindingUrl) anno).value();
                 break;
             }
         }
+        
+        // Method 설정
+        this.method = obj.getMethod();
 
         // Parameter 가져오기: 클래스내부에 정의된 것을 가져옴
         this.mappingMethods(obj, obj.getClass());

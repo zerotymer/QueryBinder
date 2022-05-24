@@ -1,5 +1,7 @@
 package querylibrary.querybinder.Annotation;
 
+import querylibrary.querybinder.Request.HttpRequestMethods;
+
 import java.lang.annotation.*;
 
 /**
@@ -14,7 +16,8 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 public @interface QueryBindingUrl {
-    /*
+
+    /**
      * URL 값을 지정한다.
      */
     String value() default "";
