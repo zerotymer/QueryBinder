@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * USE PATTERN
+ * 실제 쿼리를 요청하기 위해 사용되는 클래스
  * @author 신현진
  */
 public class QueryAdapter {
@@ -32,8 +32,10 @@ public class QueryAdapter {
      * 쿼리 요청을 실행하기 위한 메소드
      * @param query 쿼리 문자열(url)
      * @param method 쿼리 메소드(GET, POST, PUT, DELETE)
-     * @return
+     * @return 쿼리 요청 결과
      * @throws MalformedURLException
+     * @implSpec Implementation Requirements:
+     * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
     public String request(String query, HttpRequestMethods method)
             throws MalformedURLException {
@@ -74,9 +76,10 @@ public class QueryAdapter {
     /**
      * 쿼리 요청을 실행하기 위한 메소드
      * @param map
-     * @param method
-     * @return
-     * @throws MalformedURLException
+     * @return 쿼리 요청 결과
+     * @throws MalformedURLException 잘못된 URL의 경우 {@link HttpURLConnection} 객체 생성시 오류 발생
+     * @implSpec Implementation Requirements:
+     * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
     public String request(QueryMap map)
             throws MalformedURLException {
@@ -140,8 +143,10 @@ public class QueryAdapter {
      * 쿼리 요청을 실행하기 위한 메소드
      * @param query 쿼리 문자열(url)
      * @param method 쿼리 메소드(GET, POST, PUT, DELETE)
-     * @return
+     * @return 쿼리 요청 결과
      * @throws MalformedURLException
+     * @implSpec Implementation Requirements:
+     * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
     public static String staticRequest(String query, HttpRequestMethods method)
             throws MalformedURLException {
@@ -182,9 +187,10 @@ public class QueryAdapter {
     /**
      * 쿼리 요청을 실행하기 위한 메소드
      * @param map
-     * @param method
-     * @return
-     * @throws MalformedURLException
+     * @return 쿼리 요청 결과
+     * @throws MalformedURLException 잘못된 URL의 경우 {@link HttpURLConnection} 객체 생성시 오류 발생
+     * @implSpec Implementation Requirements:
+     * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
     public static String staticRequest(QueryMap map)
             throws MalformedURLException {

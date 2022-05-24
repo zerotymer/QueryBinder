@@ -24,6 +24,9 @@ import java.util.function.Function;
 /**
  * 쿼리 요청을 위한 데이터 객체
  * @Author 신현진
+ * @Date 2022-05-24
+ * @Version 1.0
+ * compostion 방식으로 필드 정의
  */
 public class QueryMap implements Map<String, String> {
     public enum MapType {
@@ -70,6 +73,10 @@ public class QueryMap implements Map<String, String> {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      * @throws NoSuchMethodException
+     * @implSpec Implementation Requirements:
+     * <br> 1. 클래스에 정의한 {@link QueryBindingUrl}을 찾아서 URL 값을 설정한다.
+     * <br> 2. 클래스에 정의한 {@link QueryBindingGetParam}({@link QueryBindingParam})을 찾아서 Method, Field를 찾아서 값을 설정한다.
+     *
      */
     public QueryMap(QueryRequestable obj)
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
@@ -100,6 +107,11 @@ public class QueryMap implements Map<String, String> {
      * @param <T> 객체 타입
      * @throws IllegalAccessException
      * @throws UnsupportedEncodingException
+     * @implSpec Implementation Requirements:
+     * <br> 객체를 순회하며 필드에 정의된 {@link Annotation}을 찾아서 값을 설정한다.
+     * <br> 1. {@link QueryBindingUrl} 이 정의되어 있으면 URL 값을 설정한다.
+     * <br> 2. {@link QueryBindingGetContent} 이 정의되어 있으면 CONTENT 값을 설정한다.
+     * <br> 3. {@link QueryBindingGetParam}({@link QueryBindingParam}) 이 정의되어 있으면 PARAMS 값을 설정한다.
      */
     private <T extends QueryRequestable> void mappingFields(T obj, Class<?> cls)
             throws IllegalAccessException, UnsupportedEncodingException {
@@ -165,6 +177,11 @@ public class QueryMap implements Map<String, String> {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      * @throws UnsupportedEncodingException
+     * @implSpec Implementation Requirements:
+     * <br> 객체를 순회하며 메소드에 정의된 {@link Annotation}을 찾아서 값을 설정한다.
+     * <br> 1. {@link QueryBindingUrl} 이 정의되어 있으면 URL 값을 설정한다.
+     * <br> 2. {@link QueryBindingGetContent} 이 정의되어 있으면 CONTENT 값을 설정한다.
+     * <br> 3. {@link QueryBindingGetParam}({@link QueryBindingParam}) 이 정의되어 있으면 PARAMS 값을 설정한다.
      */
     private <T extends QueryRequestable> void mappingMethods(T obj, Class<?> cls)
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
@@ -257,6 +274,9 @@ public class QueryMap implements Map<String, String> {
      * @param isEncode
      * @return 가져올 수 없거나 가져오지 않아도 되는 값은 null
      * @throws UnsupportedEncodingException
+     * @implSpec Implementation Requirements:
+     * <br> 1. 기본 값과 비교
+     * <br> 2. 값이 없거나 가져오지 않아도 되는 값은 null
      */
     private String check(Object value, String defaultValue, boolean isRequired, boolean isEncode)
             throws UnsupportedEncodingException {
