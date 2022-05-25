@@ -1,6 +1,6 @@
 package querylibrary.querybinder;
 
-import querylibrary.querybinder.Request.HttpRequestMethods;
+import querylibrary.querybinder.Request.HttpRequestMethod;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -19,14 +19,14 @@ public interface QueryRequestable {
         return new QueryMap(this);
     }
 
-    default HttpRequestMethods getMethod() {
-        return HttpRequestMethods.GET;
+    default HttpRequestMethod getMethod() {
+        return HttpRequestMethod.GET;
     }
 
     default String request()
             throws UnsupportedEncodingException, InvocationTargetException, IllegalAccessException, MalformedURLException {
         QueryMap map = new QueryMap(this);
-        map.setMethod(HttpRequestMethods.GET);
+        map.setMethod(HttpRequestMethod.GET);
         return QueryAdapter.staticRequest(map);
     }
 }

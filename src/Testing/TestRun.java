@@ -1,11 +1,7 @@
 package Testing;
 
-import org.json.JSONObject;
 import querylibrary.querybinder.QueryAdapter;
 import querylibrary.querybinder.QueryMap;
-import querylibrary.querybinder.Request.HttpRequestMethods;
-
-import java.util.List;
 
 public class TestRun {
     public static void main(String[] args) throws Exception {
@@ -14,7 +10,7 @@ public class TestRun {
         QueryMap queryMap = new QueryMap(testRequestVO);
         QueryAdapter adapter = new QueryAdapter();
         System.out.println(adapter.request(queryMap));
-//        JSONObject object = new JSONObject(adapter.request(queryMap, HttpRequestMethods.GET));     // One
+//        JSONObject object = new JSONObject(adapter.request(queryMap, HttpRequestMethod.GET));     // One
 
 //        System.out.println(object);
     }

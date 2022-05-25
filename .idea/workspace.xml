@@ -8,7 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="06b38bba-da62-4af6-b4c4-82905e9cb1e8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing/TestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing/TestRun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/Annotation/QueryBindingUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/QueryRequestable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/querylibrary/querybinder/Request/HttpRequestMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/querylibrary/querybinder/Request/HttpRequestMethod.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +136,8 @@
       <workItem from="1653288319085" duration="1140000" />
       <workItem from="1653289475866" duration="692000" />
       <workItem from="1653348280157" duration="2872000" />
-      <workItem from="1653375622529" duration="266000" />
+      <workItem from="1653375622529" duration="334000" />
+      <workItem from="1653458517619" duration="17000" />
     </task>
     <servers />
   </component>

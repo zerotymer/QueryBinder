@@ -5,7 +5,7 @@ import querylibrary.querybinder.Annotation.QueryBindingGetParam;
 import querylibrary.querybinder.Annotation.QueryBindingParam;
 import querylibrary.querybinder.Annotation.QueryBindingUrl;
 import querylibrary.querybinder.Request.HttpContent;
-import querylibrary.querybinder.Request.HttpRequestMethods;
+import querylibrary.querybinder.Request.HttpRequestMethod;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -35,7 +35,7 @@ public class QueryMap implements Map<String, String> {
 
     /// FIELDs ---------------------------------------------------------------------------------------------------------
     private String url = null;                                          // URL
-    private HttpRequestMethods method;                                  // METHOD
+    private HttpRequestMethod method;                                  // METHOD
     private final Map<String, String> params;                           // PARAMS
     // TODO: Authorization                                              // AUTHORIZATION
     private final Map<String, String> header;                           // HEADER
@@ -44,7 +44,7 @@ public class QueryMap implements Map<String, String> {
 
     /// Initializer Block ----------------------------------------------------------------------------------------------
     {
-        this.method = HttpRequestMethods.GET;
+        this.method = HttpRequestMethod.GET;
         this.params = new HashMap<>();
         this.header = new HashMap<>();
         this.content = null;
@@ -315,13 +315,13 @@ public class QueryMap implements Map<String, String> {
      * Http 요청 방식을 가져옵니다.
      * @return
      */
-    public HttpRequestMethods getMethod() { return method; }
+    public HttpRequestMethod getMethod() { return method; }
 
     /**
      * Http 요청 방식을 설정합니다.
      * @param method
      */
-    public void setMethod(HttpRequestMethods method) { this.method = method; }
+    public void setMethod(HttpRequestMethod method) { this.method = method; }
 
     /**
      * Content 정보를 가져옵니다. (POST에서 사용)

@@ -1,7 +1,5 @@
 package querylibrary.querybinder.Annotation;
 
-import querylibrary.querybinder.Request.HttpRequestMethods;
-
 import java.lang.annotation.*;
 
 /**

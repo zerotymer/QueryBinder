@@ -1,10 +1,7 @@
 package querylibrary.querybinder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import querylibrary.querybinder.Request.HttpContent;
-import querylibrary.querybinder.Request.HttpRequestMethods;
+import querylibrary.querybinder.Request.HttpRequestMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,9 +10,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 실제 쿼리를 요청하기 위해 사용되는 클래스
@@ -37,7 +31,7 @@ public class QueryAdapter {
      * @implSpec Implementation Requirements:
      * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
-    public String request(String query, HttpRequestMethods method)
+    public String request(String query, HttpRequestMethod method)
             throws MalformedURLException {
         // URL check
         if (query.isEmpty()) throw new MalformedURLException("URL is empty");
@@ -87,7 +81,7 @@ public class QueryAdapter {
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
 
-        HttpRequestMethods method = map.getMethod();
+        HttpRequestMethod method = map.getMethod();
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -104,7 +98,7 @@ public class QueryAdapter {
             HttpContent content = map.getContent();
             if (content != null) {
                 byte[] bytes = map.getContent().getBytes();
-                if (method == HttpRequestMethods.POST && bytes != null) {
+                if (method == HttpRequestMethod.POST && bytes != null) {
                     conn.setDoOutput(true);
                     OutputStream os = conn.getOutputStream();
                     os.write(bytes);
@@ -148,7 +142,7 @@ public class QueryAdapter {
      * @implSpec Implementation Requirements:
      * <br> {@link HttpURLConnection} 객체를 통하여 쿼리 요청을 실행한다.
      */
-    public static String staticRequest(String query, HttpRequestMethods method)
+    public static String staticRequest(String query, HttpRequestMethod method)
             throws MalformedURLException {
         // URL check
         if (query.isEmpty()) throw new MalformedURLException("URL is empty");
@@ -198,7 +192,7 @@ public class QueryAdapter {
         if (map.getUrl().isEmpty()) throw new MalformedURLException("URL is empty");
         URL url = new URL(map.toQueryString());
 
-        HttpRequestMethods method = map.getMethod();
+        HttpRequestMethod method = map.getMethod();
 
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -215,7 +209,7 @@ public class QueryAdapter {
             HttpContent content = map.getContent();
             if (content != null) {
                 byte[] bytes = map.getContent().getBytes();
-                if (method == HttpRequestMethods.POST && bytes != null) {
+                if (method == HttpRequestMethod.POST && bytes != null) {
                     conn.setDoOutput(true);
                     OutputStream os = conn.getOutputStream();
                     os.write(bytes);
