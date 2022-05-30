@@ -29,11 +29,14 @@ import java.util.function.Function;
  * compostion 방식으로 필드 정의
  */
 public class QueryMap implements Map<String, String> {
+    //region Inner Classes ---------------------------------------------------------------------------------------------
     public enum MapType {
         PARAMS, HEADER
     }
+    //endregion Inner Classes  -----------------------------------------------------------------------------------------
 
-    /// FIELDs ---------------------------------------------------------------------------------------------------------
+
+    //region Fields ----------------------------------------------------------------------------------------------------
     private String url = null;                                          // URL
     private HttpRequestMethod method;                                  // METHOD
     private final Map<String, String> params;                           // PARAMS
@@ -42,15 +45,16 @@ public class QueryMap implements Map<String, String> {
     private HttpContent content;                                        // CONTENT
     // TODO: Cookie                                                     // COOKIE
 
-    /// Initializer Block ----------------------------------------------------------------------------------------------
     {
         this.method = HttpRequestMethod.GET;
         this.params = new HashMap<>();
         this.header = new HashMap<>();
         this.content = null;
     }
+    //endregion Fields -------------------------------------------------------------------------------------------------
 
-    /// CONSTRUCTORs ---------------------------------------------------------------------------------------------------
+
+    //region Constructors ----------------------------------------------------------------------------------------------
     /**
      * 기본 생성자
      */
@@ -75,7 +79,7 @@ public class QueryMap implements Map<String, String> {
      * @throws NoSuchMethodException
      * @implSpec Implementation Requirements:
      * <br> 1. 클래스에 정의한 {@link QueryBindingUrl}을 찾아서 URL 값을 설정한다.
-     * <br> 2. {@link QueryRequestable.getMethod()}를 찾아서 METHOD 값을 설정한다.
+     * <br> 2. {@link QueryRequestable#getMethod()}를 찾아서 METHOD 값을 설정한다.
      * <br> 3. 클래스에 정의한 {@link QueryBindingGetParam}({@link QueryBindingParam})을 찾아서 Method, Field를 찾아서 값을 설정한다.
      *
      */
@@ -100,9 +104,10 @@ public class QueryMap implements Map<String, String> {
         this.mappingMethods(obj, obj.getClass());
         this.mappingFields(obj, obj.getClass());
     }
+    //endregion Constructors -------------------------------------------------------------------------------------------
 
-    /// METHODs --------------------------------------------------------------------------------------------------------
 
+    //region Methods ---------------------------------------------------------------------------------------------------
     /**
      * 클래스내부에 정의된 필드를 바인딩하는 메소드
      * @param obj 쿼리 정보를 담은 객체
@@ -295,9 +300,6 @@ public class QueryMap implements Map<String, String> {
         else if (isRequired)    return isEncode ? URLEncoder.encode(defaultValue, "UTF-8"): defaultValue;
         else                    return null;
     }
-
-
-    // Getter & Setter -------------------------------------------------------------------------------------------------
 
     /**
      * URL 정보를 가져옵니다.
@@ -861,4 +863,5 @@ public class QueryMap implements Map<String, String> {
         }
     }
 
+    //endregion Methods ------------------------------------------------------------------------------------------------
 }

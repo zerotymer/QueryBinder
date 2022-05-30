@@ -16,11 +16,7 @@ import java.net.URL;
  * @author 신현진
  */
 public class QueryAdapter {
-    /// FIELDs
-
-    /// CONSTRUCTORs
-
-    /// METHODs
+    //region Methods ---------------------------------------------------------------------------------------------------
 
     /**
      * 쿼리 요청을 실행하기 위한 메소드
@@ -240,4 +236,6 @@ public class QueryAdapter {
 
         return null;
     }
+
+    //endregion Methods ------------------------------------------------------------------------------------------------
 }

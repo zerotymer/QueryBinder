@@ -5,21 +5,17 @@ import java.util.Map;
 public class HttpContentFormUrlEncoded
         extends HttpContentFormData {
 
-    /// CONSTRUCTORs
-    public HttpContentFormUrlEncoded() {
-        super();
-    }
-    public HttpContentFormUrlEncoded(Map<String, String> map) {
-        super(map);
-    }
+    //region Constructors ----------------------------------------------------------------------------------------------
+    public HttpContentFormUrlEncoded() { super(); }
+    public HttpContentFormUrlEncoded(Map<String, String> map) { super(map); }
+    //endregion Constructors -------------------------------------------------------------------------------------------
 
-    /// METHOD
+    //region Methods ---------------------------------------------------------------------------------------------------
     @Override
     public String getString() {
         // TODO: make this method.
         // URLEncoding
         return null;
     }
-
-
+    //endregion Methods ------------------------------------------------------------------------------------------------
 }

@@ -13,7 +13,20 @@ import java.net.MalformedURLException;
  */
 
 public interface QueryRequestable {
-    /// FIELDs
+
+    //region Inner Classes ---------------------------------------------------------------------------------------------
+    //endregion Inner Classes  -----------------------------------------------------------------------------------------
+
+
+    //region Fields ----------------------------------------------------------------------------------------------------
+    //endregion Fields -------------------------------------------------------------------------------------------------
+
+
+    //region Constructors ----------------------------------------------------------------------------------------------
+    //endregion Constructors -------------------------------------------------------------------------------------------
+
+
+    //region Methods ---------------------------------------------------------------------------------------------------
     default QueryMap getQueryMap()
             throws InvocationTargetException, IllegalAccessException, UnsupportedEncodingException {
         return new QueryMap(this);
@@ -29,4 +42,5 @@ public interface QueryRequestable {
         map.setMethod(HttpRequestMethod.GET);
         return QueryAdapter.staticRequest(map);
     }
+    //endregion Methods ------------------------------------------------------------------------------------------------
 }
